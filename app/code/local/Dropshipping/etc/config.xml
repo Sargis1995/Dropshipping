@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Dropshipping>
+            <version>1.0.0.0</version>
+        </Dropshipping>
+    </modules>
+
+    <global>
+        <fieldsets>
+            <sales_convert_quote_payment>
+                <custom_field_one>
+                    <to_order_payment>*</to_order_payment>
+                </custom_field_one>
+                <custom_field_two>
+                    <to_order_payment>*</to_order_payment>
+                </custom_field_two>
+            </sales_convert_quote_payment>
+        </fieldsets>
+
+        <helpers>
+            <dropshipping>
+                <class>Dropshipping_Helper</class>
+            </dropshipping>
+        </helpers>
+
+        <blocks>
+            <dropshipping>
+                <class>Dropshipping_Block</class>
+            </dropshipping>
+        </blocks>
+
+        <models>
+            <dropshipping>
+                <class>Dropshipping_Model</class>
+            </dropshipping>
+        </models>
+
+        <resources>
+            <dropshipping_setup>
+                <setup>
+                    <module>Dropshipping</module>
+                </setup>
+            </dropshipping_setup>
+        </resources>
+
+        <events>
+            <payment_method_is_active>
+                <observers>
+                    <paymentfilter_payment_method_is_active>
+                        <type>singleton</type>
+                        <class>dropshipping/observer</class>
+                        <method>filterpaymentmethod</method>
+                    </paymentfilter_payment_method_is_active>
+                </observers>
+            </payment_method_is_active>
+        </events>
+    </global>
+
+    <default>
+        <payment>
+            <dropshipping>
+                <active>1</active>
+                <model>dropshipping/dropshipping</model>
+                <order_status>holded</order_status>
+                <title>Dropshipping</title>
+                <allowspecific>0</allowspecific>
+                <payment_action>sale</payment_action>
+            </dropshipping>
+        </payment>
+    </default>
+
+    <frontend>
+        <routers>
+            <dropshipping>
+                <use>standard</use>
+                <args>
+                    <module>Dropshipping</module>
+                    <frontName>dropshipping</frontName>
+                </args>
+            </dropshipping>
+        </routers>
+    </frontend>
+</config>

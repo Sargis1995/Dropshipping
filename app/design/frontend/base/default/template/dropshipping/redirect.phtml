@@ -1,0 +1,19 @@
+<?php
+$className=Mage::getConfig()->getBlockClassName('Dropshipping_Block_Form_Dropshipping');
+$block = new $className();
+$data=$block->dataForEmail();
+$mail = Mage::getModel('core/email');
+$recipients = array($data['email']);
+$mailBody   = "<p>Please confirm payment method</p><br>
+<a href='".Mage::helper('dropshipping')->getPaymentGatewayUrl()."?orderId=".$data['orderId']."'>CONFIRM</a>";
+$mail->setToEmail($recipients);
+$mail->setBody($mailBody);
+$mail->setSubject("Testing");
+$mail->setFromName("test task");
+$mail->setFromEmail(Mage::getStoreConfig('trans_email/ident_custom1/email'));
+$mail->setType('html');
+$mail->send();
+
+?>
+<h2><?php echo $this->__('Demo Payment Gateway') ?></h2>
+<p>check your email and confirm payment method</p>
